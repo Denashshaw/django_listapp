@@ -1,0 +1,17 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+	{% block content %}
+		<div class="container p-5" style="max-width: 50%;margin: auto;background: white;border-radius: 15px;">
+			<h3>User Registeration Form</h3><br>
+			<form method="POST">
+				{% csrf_token %}
+				{{form|crispy}}
+				<div class="form-group">
+					<button type="submit" class="btn btn-outline-info">Submit</button>
+				</div>
+			</form>
+			<div>
+				<small>Already have an account <a href="{% url 'login' %}">Login</a></small>
+			</div>
+		</div>
+	{% endblock content %}

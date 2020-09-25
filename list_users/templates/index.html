@@ -1,0 +1,130 @@
+{% extends 'users/base.html' %}
+{% load bootstrap %}
+{% load crispy_forms_tags %}
+	{% block content %}
+	
+	<form method="GET" style="margin-right: 130px;text-align: right;">
+		{{filter_input.form}}
+		<button type="submit" class="btn btn-success btn-xs">Submit</button>			
+	</form><br>
+	<div class="container p-5" style="max-width: 80%;margin: auto;background: white;border-radius: 15px;overflow-x: auto;white-space: nowrap;">
+		<table class="table table-bordered">
+			<thead>
+				<th>System</th>
+				<th>Claim_id</th>
+				<th>Insurance</th>
+				<th>Patient</th>
+				<th>Charge</th>
+				<th>Dos_from</th>
+				<th>Dos_to</th>
+				<th>Sent</th>
+				<th>FU_date</th>
+				<th>Level of Care</th>
+				<th>Status</th>
+				<th>Facility</th>
+				<th>Worked Date</th>
+				<th>Worked Rep</th>
+				<th>Notes</th>
+				<th>Completed</th>
+				<th>Claim</th>
+				<th>Allowed</th>
+				<th>Paid</th>
+				<th>Interest</th>
+				<th>Coinsurance</th>
+				<th>Copay</th>
+				<th>Deductible</th>
+				<th>Date Paid</th>
+				<th>Cashed Date</th>
+				<th>Payer</th>
+				<th>Method</th>
+				<th>Payment</th>
+				<th>Bulk Amount</th>
+				<th>Unique Id</th>
+				<th>Employee Id</th>
+				<th>Created Date</th>
+			</thead>
+			<tbody>
+				{% for list_value in list_val %}
+				<tr>
+					<td>{{list_value.system}}</td>
+					<td>{{list_value.claim_id}}</td>
+					<td>{{list_value.ins}}</td>
+					<td>{{list_value.patient}}</td>
+					<td>{{list_value.charge}}</td>
+					<td>{{list_value.dos_from}}</td>
+					<td>{{list_value.dos_to}}</td>
+					<td>{{list_value.sent}}</td>
+					<td>{{list_value.fu_date}}</td>
+					<td>{{list_value.level_of_care}}</td>
+					<td>{{list_value.status}}</td>
+					<td>{{list_value.facility}}</td>
+					<td>{{list_value.worked_date}}</td>
+					<td>{{list_value.worked_rep}}</td>
+					<td>{{list_value.notes}}</td>
+					<td>{{list_value.completed}}</td>
+					<td>{{list_value.claim}}</td>
+					<td>{{list_value.allowed}}</td>
+					<td>{{list_value.paid}}</td>
+					<td>{{list_value.interest}}</td>
+					<td>{{list_value.coinsurance}}</td>
+					<td>{{list_value.copay}}</td>
+					<td>{{list_value.deductible}}</td>
+					<td>{{list_value.date_paid}}</td>
+					<td>{{list_value.cashed_date}}</td>
+					<td>{{list_value.payer}}</td>
+					<td>{{list_value.method}}</td>
+					<td>{{list_value.payment}}</td>
+					<td>{{list_value.bulk_amount}}</td>
+					<td>{{list_value.unique_id}}</td>
+					<td>{{list_value.emp_id}}</td>
+					<td>{{list_value.created_date}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>		
+	</div>
+	<br>
+	<span style="margin-left: 200px;">Page: {{list_val.number}} of {{list_val.paginator.num_pages}}</span>
+
+	<div class="pagination pl-5 float-right">
+		Total: <b>{{list_val.paginator.count}}</b> Records
+		{% if list_val.has_previous %}
+			<a href="/?page=1"><<</a>
+			<!-- <a href="?page={{list_val.previous_page_number}}"><</a> -->
+		{% endif %}
+
+		{% for num in list_val.paginator.page_range %}
+			{% if list_val.number == num %}
+				<strong> <span class="pag_active">{{ num }}</span> </strong>
+			{% elif num > list_val.number|add:'-3' and num < list_val.number|add:'3' %}
+				<a href="?page={{num}}">{{num}}</a>
+			{% endif %}			
+		{% endfor %}		
+
+		{% if list_val.has_next %}
+			<!-- <a href="?page={{list_val.next_page_number}}">></a> -->
+			<a href="?page={{list_val.paginator.num_pages}}">>></a>
+		{% endif %}
+	</div>		
+<!-- https://simpleisbetterthancomplex.com/tutorial/2016/11/28/how-to-filter-querysets-dynamically.html -->
+<style>
+	.pagination{
+		display: inline-block;
+		padding: 20px 0px;
+	}
+
+	.pagination a{
+		background: blue;
+		padding: 5px;
+		color: white;
+		border-radius: 3px;
+	}
+	.pag_active{
+		background: red;
+		padding: 5px;
+		color: white;
+		border-radius: 3px;	
+	}
+	tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+	{% endblock content %}

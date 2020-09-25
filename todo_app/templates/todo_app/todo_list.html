@@ -1,0 +1,38 @@
+{% extends 'users/base.html'%}
+
+{% block content %}
+	<div class="row p-5" style="max-width: 50%;margin: auto;background: white;border-radius: 15px;">
+		<h1>Welcome to Todo App</h1>
+		<br><br>
+		<div class="col-md-8 pt-4">
+			<form action="{% url 'insert_todo' %}" method="POST" autocomplete="off">
+				{% csrf_token %}
+				<div class="input-group mb-3">
+				  <input type="text" class="form-control" name="content">
+				  <div class="input-group-append">
+				    <button class="btn btn-success" type="submit">Add</button>
+				  </div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="col-md-12 p-4">		
+			{% for todo in todos %}			
+				<li class="list-group-item"><b>{{ forloop.counter}})</b> {{todo.content}}
+	                <form action="{% url 'delete_todo' todo.id %}" method="post" class="float-right">
+	                    {% csrf_token %}
+	                    <div>	                    	
+	                    	<button type="submit" class="btn btn-danger">Delete</button>
+	                    </div>
+	                </form>
+	            </li>
+	            {% empty %}
+	            <li class="list-group-item">
+	                <span class="font-italic">No todo item found.</span>
+	            </li>
+	            {% endfor %}
+		</div>
+	</div>
+
+	
+{% endblock %}
